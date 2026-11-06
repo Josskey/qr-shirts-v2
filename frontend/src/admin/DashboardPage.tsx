@@ -22,19 +22,25 @@ export default function DashboardPage() {
 
     http
       .get("/admin/stats")
-      .then((res) =>
+      .then((res) => {
+
         setStats(
           res.data
-        )
-      );
+        );
+
+      });
 
     http
       .get("/admin/batches")
-      .then((res) =>
+      .then((res) => {
+
         setBatches(
-          res.data.slice(0, 5)
-        )
-      );
+          Array.isArray(res.data)
+            ? res.data.slice(0, 5)
+            : []
+        );
+
+      });
 
   }, []);
 
@@ -159,45 +165,45 @@ export default function DashboardPage() {
         Последние партии
       </h2>
 
-      {batches.map((batch) => (
+      {Array.isArray(batches) &&
+        batches.map((batch) => (
 
-        <Link
-          key={batch.id}
-          to={`/adm/batches/${batch.id}`}
-          style={{
-            display: "block",
-            textDecoration: "none",
-            color: "inherit",
-            marginBottom: 12
-          }}
-        >
-
-          <div
+          <Link
+            key={batch.id}
+            to={`/adm/batches/${batch.id}`}
             style={{
-              border: "1px solid #ddd",
-              padding: 16,
-              borderRadius: 12,
-              background: "white",
-              boxShadow:
-                "0 2px 8px rgba(0,0,0,0.05)"
+              display: "block",
+              textDecoration: "none",
+              color: "inherit",
+              marginBottom: 12
             }}
           >
 
-            <strong>
-              {batch.name}
-            </strong>
+            <div
+              style={{
+                border: "1px solid #ddd",
+                padding: 16,
+                borderRadius: 12,
+                background: "white",
+                boxShadow:
+                  "0 2px 8px rgba(0,0,0,0.05)"
+              }}
+            >
 
-            <br />
+              <strong>
+                {batch.name}
+              </strong>
 
-            Футболок:
-            {" "}
-            {batch.shirts_count}
+              <br />
 
-          </div>
+              Футболок:{" "}
+              {batch.shirts_count}
 
-        </Link>
+            </div>
 
-      ))}
+          </Link>
+
+        ))}
 
     </div>
 

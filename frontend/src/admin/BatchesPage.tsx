@@ -27,8 +27,7 @@ export default function BatchesPage() {
     await http.post(
       "/admin/batches/create",
       {
-        count:
-          Number(count)
+        count: Number(count)
       }
     );
 
@@ -38,7 +37,9 @@ export default function BatchesPage() {
       );
 
     setBatches(
-      res.data
+      Array.isArray(res.data)
+        ? res.data
+        : []
     );
 
     setCount("10");
@@ -49,11 +50,15 @@ export default function BatchesPage() {
 
     http
       .get("/admin/batches")
-      .then((res) =>
+      .then((res) => {
+
         setBatches(
-          res.data
-        )
-      );
+          Array.isArray(res.data)
+            ? res.data
+            : []
+        );
+
+      });
 
   }, []);
 
@@ -79,70 +84,70 @@ export default function BatchesPage() {
         </h3>
 
         <input
-  type="number"
-  value={count}
-  onChange={(e) =>
-    setCount(
-      e.target.value
-    )
-  }
-  style={{
-    padding: 8,
-    borderRadius: 8,
-    border: "1px solid #ddd",
-    marginRight: 8
-  }}
-/>
+          type="number"
+          value={count}
+          onChange={(e) =>
+            setCount(
+              e.target.value
+            )
+          }
+          style={{
+            padding: 8,
+            borderRadius: 8,
+            border: "1px solid #ddd",
+            marginRight: 8
+          }}
+        />
 
         {" "}
 
         <button
-  onClick={createBatch}
-  style={{
-    padding: "8px 16px",
-    borderRadius: 8,
-    border: "none",
-    background: "#2563eb",
-    color: "white",
-    cursor: "pointer"
-  }}
->
-  Создать партию
-</button>
+          onClick={createBatch}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 8,
+            border: "none",
+            background: "#2563eb",
+            color: "white",
+            cursor: "pointer"
+          }}
+        >
+          Создать партию
+        </button>
 
       </div>
 
-      {batches.map((batch) => (
+      {Array.isArray(batches) &&
+        batches.map((batch) => (
 
-        <div
-          key={batch.id}
-          style={{
-            border: "1px solid #ddd",
-            padding: 16,
-            marginBottom: 12,
-            borderRadius: 8
-          }}
-        >
-
-          <h3>
-            {batch.name}
-          </h3>
-
-          <p>
-            Футболок:
-            {" "}
-            {batch.shirts_count}
-          </p>
-
-          <Link
-            to={`/adm/batches/${batch.id}`}
+          <div
+            key={batch.id}
+            style={{
+              border: "1px solid #ddd",
+              padding: 16,
+              marginBottom: 12,
+              borderRadius: 8
+            }}
           >
-            Открыть
-          </Link>
 
-        </div>
+            <h3>
+              {batch.name}
+            </h3>
 
-      ))}
+            <p>
+              Футболок:{" "}
+              {batch.shirts_count}
+            </p>
+
+            <Link
+              to={`/adm/batches/${batch.id}`}
+            >
+              Открыть
+            </Link>
+
+          </div>
+
+        ))}
 
     </div>
 

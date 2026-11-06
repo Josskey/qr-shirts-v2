@@ -1,7 +1,7 @@
 services:
+
   postgres:
     image: postgres:17
-
     container_name: qrshirts-postgres
 
     environment:
@@ -14,6 +14,32 @@ services:
 
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: qrshirts-backend
+
+    depends_on:
+      - postgres
+
+    ports:
+      - "4001:4001"
+
+    env_file:
+      - ./backend/.env
+
+  frontend:
+    build: ./frontend
+    container_name: qrshirts-frontend
+
+    depends_on:
+      - backend
+
+    ports:
+      - "5173:4173"
+
+    env_file:
+      - ./frontend/.env
 
 volumes:
   postgres_data:
