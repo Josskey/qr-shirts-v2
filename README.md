@@ -2,22 +2,89 @@
 
 Сервис активации футболок с QR-кодами.
 
-## Frontend
+## Технологии
 
-cd frontend
-npm install
-npm run dev
+- React + Vite
+- TypeScript
+- Node.js + Express
+- PostgreSQL
+- Docker Compose
 
-## Backend
+## Запуск через Docker
 
+Сборка и запуск:
+
+```bash
+docker compose up -d --build
+```
+
+Frontend:
+
+http://localhost:5173
+
+Backend:
+
+http://localhost:4001
+
+Health Check:
+
+http://localhost:4001/health
+```
+
+## Остановка
+
+```bash
+docker compose down
+```
+
+## Перезапуск после изменений
+
+```bash
+docker compose up -d --build
+```
+
+## Локальная разработка
+
+### Backend
+
+```bash
 cd backend
 npm install
 npm run dev
+```
 
-## Build
+### Frontend
 
-Frontend:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+## Сборка
+
+### Frontend
+
+```bash
+cd frontend
 npm run build
+```
 
-Backend:
+### Backend
+
+```bash
+cd backend
 npm run build
+```
+
+## Структура проекта
+
+```text
+qr-shirts-v2
+├── backend
+├── frontend
+├── database
+├── docs
+├── docker-compose.yml
+└── README.md
+```
