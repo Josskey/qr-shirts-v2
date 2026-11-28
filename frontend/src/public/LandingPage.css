@@ -871,7 +871,7 @@ text-align: center;
    900px
 ========================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 930px) {
 
   .landing-header {
     position: relative;
@@ -1392,7 +1392,7 @@ text-align: center;
 
 /* =========================== 900 =========================== */
 
-@media (max-width: 900px) {
+@media (max-width: 930px) {
 
   .landing-header {
     flex-wrap: wrap;
@@ -1475,3 +1475,4 @@ text-align: center;
     text-align: center;
   }
 }
+

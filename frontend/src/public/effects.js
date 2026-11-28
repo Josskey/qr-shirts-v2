@@ -11,21 +11,34 @@ export function initQrEffects(options = {}) {
   document.querySelector(".qrfx-overlay")?.remove();
 
   const settings = {
-    pixelCount: 34,
-    maxPixelSize: 18,
-    reveal: true,
-    hover: true,
+  pixelCount: 34,
+  maxPixelSize: 18,
+  reveal: true,
 
-    glitch: true,
-    glitchSelector: ".qrfx-hero",
-    glitchMinDelay: 4200,
-    glitchMaxDelay: 9000,
-    glitchSlicesMin: 3,
-    glitchSlicesMax: 6,
-    glitchMaxShift: 34,
-    glitchDuration: 230,
-    glitchMobile: true,
+  // Настройки появления элементов
+  revealSelectors: [
+    "section h1",
+    "section h2",
+    "section h3",
+    ".block-content",
+    ".card-box",
+    ".feature",
+    ".audience-card",
+    ".cta"
+  ],
+  revealSkipFirstSections: 2,
 
+  hover: true,
+
+  glitch: true,
+  glitchSelector: ".qrfx-hero",
+  glitchMinDelay: 4200,
+  glitchMaxDelay: 9000,
+  glitchSlicesMin: 3,
+  glitchSlicesMax: 6,
+  glitchMaxShift: 34,
+  glitchDuration: 230,
+  glitchMobile: true,
     // Performance
     fps: 30,
     desktopRainCount: 260,
@@ -292,11 +305,11 @@ export function initQrEffects(options = {}) {
   }
 
   
-  // Scroll reveal
+    // Scroll reveal
   const revealTargets = [];
 
   if (settings.reveal) {
-    const selectors = [
+    const selectors = settings.revealSelectors || [
       "section h1",
       "section h2",
       "section h3",
@@ -304,18 +317,24 @@ export function initQrEffects(options = {}) {
       ".card-box",
       ".feature",
       ".audience-card",
-      ".cta",
+      ".cta"
     ];
 
     document.querySelectorAll(selectors.join(",")).forEach((el) => {
       if (el.dataset.qrfxReveal === "true") return;
 
-      // Первые две секции должны отображаться сразу
+      // Количество секций, которые не нужно анимировать.
+      // Для главной — первые две, для магазина — ни одной.
+      const skipFirstSections = settings.revealSkipFirstSections ?? 2;
+
       const section = el.closest("section");
       const sections = Array.from(document.querySelectorAll("section"));
-      const sectionIndex = sections.indexOf(section);
+      const sectionIndex = section ? sections.indexOf(section) : -1;
 
-      if (sectionIndex === 0 || sectionIndex === 1) {
+      if (
+        sectionIndex >= 0 &&
+        sectionIndex < skipFirstSections
+      ) {
         return;
       }
 
@@ -343,7 +362,7 @@ export function initQrEffects(options = {}) {
     revealTargets.forEach((el) => el.classList.add("qrfx-visible"));
   }
 
-
+  
   // Hover highlights
   const hoverTargets = [];
 

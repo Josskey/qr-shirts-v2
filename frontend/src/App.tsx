@@ -13,6 +13,8 @@ const UserProtectedRoute = lazy(() => import("./user/UserProtectedRoute"));
 // Остальные страницы загружаются только при переходе на них
 const LoginPage = lazy(() => import("./admin/LoginPage"));
 
+const MarketPage = lazy(() => import("./public/MarketPage"));
+
 const AdminLayout = lazy(() => import("./admin/AdminLayout"));
 const DashboardPage = lazy(() => import("./admin/DashboardPage"));
 
@@ -55,6 +57,12 @@ export default function App() {
         <Route
           path="/"
           element={<LandingPage />}
+        />
+
+        {/* Каталог товаров CODTEXA */}
+        <Route
+          path="/market"
+          element={<MarketPage />}
         />
 
         {/* Юридические страницы */}

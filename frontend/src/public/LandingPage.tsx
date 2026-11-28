@@ -64,6 +64,7 @@ export default function LandingPage() {
   <a href="#how">Как это работает</a>
   <a href="#possibilities">Возможности</a>
   <a href="#audience">Для кого</a>
+  <a href="#shop">Магазин</a>
 </nav>
 
         <div className="landing-actions">
@@ -120,14 +121,9 @@ export default function LandingPage() {
             Ваш цифровой профиль всегда под рукой.
           </p>
 
-          <a
-  href="https://vk.ru/codtexa"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="hero-button"
->
+          <Link to="/market" className="hero-button">
   Купить футболку →
-</a>
+</Link>
 
 <div className="hero-meta">
 
@@ -552,14 +548,9 @@ export default function LandingPage() {
       умной одежды.
     </p>
 
-    <a
-  href="https://vk.ru/codtexa"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="hero-button"
->
+    <Link to="/market" className="hero-button">
   Купить сейчас →
-</a>
+</Link>
 
   </div>
 
