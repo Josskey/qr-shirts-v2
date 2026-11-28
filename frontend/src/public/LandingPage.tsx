@@ -64,7 +64,7 @@ export default function LandingPage() {
   <a href="#how">Как это работает</a>
   <a href="#possibilities">Возможности</a>
   <a href="#audience">Для кого</a>
-  <a href="#shop">Магазин</a>
+  <Link to="/market">Магазин</Link>
 </nav>
 
         <div className="landing-actions">
